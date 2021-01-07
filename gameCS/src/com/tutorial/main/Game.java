@@ -1,5 +1,5 @@
 package com.tutorial.main;
-
+//This is a marked change...
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -17,6 +17,7 @@ public class Game extends Canvas implements Runnable {
 	
 	private Thread thread;
 	private boolean running = false;
+	
 	
 	private Random r;
 	private Handler handler;
