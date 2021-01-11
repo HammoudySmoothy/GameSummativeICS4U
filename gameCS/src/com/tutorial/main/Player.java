@@ -23,8 +23,8 @@ public class Player extends GameObject{
 		y+= velY;
 		
 		//Borders for Player
-		x = Game.clamp(x, 0,  Game.WIDTH - 48);
-		y = Game.clamp(y, 0,  Game.HEIGHT - 72);
+		x = Game.clamp((int)x, 0,  Game.WIDTH - 48);
+		y = Game.clamp((int)y, 0,  Game.HEIGHT - 72);
 		
 		handler.addObject(new Trail(x, y, ID.Trail, Color.white, 32, 32, (float) 0.1, handler));
 		
@@ -40,14 +40,14 @@ public class Player extends GameObject{
 		g2d.draw(getBounds());;
 		
 		if(id == ID.Player) g.setColor(Color.white);
-		g.fillRect(x, y, 32, 32);
+		g.fillRect((int)x, (int)y, 32, 32);
 	}
 
 
 	public Rectangle getBounds() {
 		// TODO Auto-generated method stub
 		
-		return new Rectangle(x, y, 32, 32);
+		return new Rectangle((int)x, (int)y, 32, 32);
 	}
 	
 	public void collision() {
@@ -68,6 +68,13 @@ public class Player extends GameObject{
 				if(getBounds().intersects(tempObject.getBounds())) {
 					//Collision Code
 					HUD.HEALTH -=1;
+				}
+				
+			}
+			if(tempObject.getID() == ID.SmartEnemy) {
+				if(getBounds().intersects(tempObject.getBounds())) {
+					//Collision Code
+					HUD.HEALTH -=3;
 				}
 				
 			}
