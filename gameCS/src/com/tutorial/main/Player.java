@@ -61,6 +61,15 @@ public class Player extends GameObject{
 					//Collision Code
 					HUD.HEALTH -=2;
 				}
+				
+			}
+			
+			if(tempObject.getID() == ID.FastEnemy) {
+				if(getBounds().intersects(tempObject.getBounds())) {
+					//Collision Code
+					HUD.HEALTH -=1;
+				}
+				
 			}
 			
 		}
