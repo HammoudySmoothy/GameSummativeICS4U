@@ -9,7 +9,7 @@ public class HUD {
 	
 	private int greenValue = 255;
 	private int score = 0;
-	private int level = 1;
+	private int level = 0;
 	
 	
 	public void tick() {

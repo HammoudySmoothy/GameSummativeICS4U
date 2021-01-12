@@ -42,7 +42,7 @@ public class FastEnemy extends GameObject {
 	public Rectangle getBounds() {
 		// TODO Auto-generated method stub
 		
-		return new Rectangle((int)x, (int)y, 16, 16);
+		return new Rectangle((int)x, (int)y, 12, 12);
 	}
 
 

@@ -39,6 +39,13 @@ public class Handler {
 				removeObject(tempObject);
 				i--;
 			}
+			if(Game.gameState == Game.STATE.End) {
+				if(tempObject.getID() == ID.Player) {
+					removeObject(tempObject);
+					i--;
+				}
+			}
+			
 		}
 	}
 }
