@@ -25,37 +25,71 @@ public class Menu extends MouseAdapter{
 	public void mousePressed(MouseEvent e) {
 		int mx = e.getX();
 		int my = e.getY();
-		//play button
+		
 		if (game.gameState == STATE.Menu) {
+			//Select Mode (play)
 			if (mouseOver(mx,my, 210,150,200,64)) {
-				game.gameState = STATE.Game;
-				handler.clearEnemies();
-				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
-				
+				game.gameState = STATE.Select;
 				AudioPlayer.getSound("buttonClick").play();
+				return;
 			}
-			//quit button
+			//Quit button
 			if (mouseOver(mx,my, 210,350,200,64)) {
 				System.out.println("Quit");
 				System.exit(1);
-				
 			}
-			//help button
+			//Help button
 			if (mouseOver(mx,my, 210,250,200,64)) {
 				game.gameState = STATE.Help;
 				AudioPlayer.getSound("buttonClick").play();
 				System.out.println("Help");
 			}
 		}
+		
+		if (game.gameState == STATE.Select) {
+			//Normal Button
+			if (mouseOver(mx,my, 210,150,200,64)) {
+				game.gameState = STATE.Game;
+				handler.clearEnemies();
+				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
+				
+				game.dif = 0;
+
+				AudioPlayer.getSound("buttonClick").play();
+			}
+			//Hard button
+			if (mouseOver(mx,my, 210,250,200,64)) {
+				game.gameState = STATE.Game;
+				handler.clearEnemies();
+				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
+				
+				game.dif = 1;
+
+				AudioPlayer.getSound("buttonClick").play();
+			}
+			
+			// ADD FACETRACKING MODE HERE....
+			// ADD 2 PLAYER MODE HERE
+			
+			//Back button
+			if (mouseOver(mx,my, 210,350,200,64)) {
+				game.gameState = STATE.Menu;
+				AudioPlayer.getSound("buttonClick").play();
+				return;
+			}
+		}
+		
 		// back button for help
 		if (game.gameState == STATE.Help) {
 			if (mouseOver(mx,my, 210,350,200,64)) {
 				game.gameState = STATE.Menu;
 				AudioPlayer.getSound("buttonClick").play();
 				System.out.println("Back");
+				return;
 			}
 		}
 		
+		//Loss Button
 		if (game.gameState == STATE.End) {
 			if (mouseOver(mx,my, 220,350,200,64)) {
 				game.gameState = STATE.Menu;
@@ -139,6 +173,29 @@ public class Menu extends MouseAdapter{
 			g.setFont(fnt2);
 			g.drawRect(220, 350, 200, 64);
 			g.drawString("Try Again?", 245, 390);
+		}
+		else if(game.gameState == STATE.Select) {
+			Font fnt = new Font("arial", 1, 50);
+			Font fnt2 = new Font("arial", 1, 30);
+			
+			g.setFont(fnt);
+			g.setColor(Color.white);
+			g.drawString("SELECT MODE", 150, 70);
+			
+			g.setFont(fnt2);
+			
+			
+			g.setColor(Color.white);
+			g.drawRect(210,150, 200, 64);
+			g.drawString("Normal", 270, 190);
+			
+			g.setColor(Color.white);
+			g.drawRect(210,250, 200, 64);
+			g.drawString("Hard", 270, 290);
+			
+			g.setColor(Color.white);
+			g.drawRect(210,350, 200, 64);
+			g.drawString("Back", 270, 390);
 		}
 	}
 
