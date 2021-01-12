@@ -18,17 +18,30 @@ public class Game extends Canvas implements Runnable {
 	private Thread thread;
 	private boolean running = false;
 	
-	
 	private Random r;
 	private Handler handler;
 	private HUD hud;
 	private Spawn spawner;
+	private Menu menu;
+	
+	
+	public enum STATE{
+		Menu(),
+		Game(),
+		Help()
+	};
+	
+	public STATE gameState = STATE.Menu;
 	
 	public Game() {
 		
 		handler = new Handler();
 		
+		menu = new Menu(this, handler);
+		
 		this.addKeyListener(new KeyInput(handler));
+		
+		this.addMouseListener(menu);
 		
 		new Window(WIDTH, HEIGHT, "Let's build a game", this);
 		
@@ -36,11 +49,12 @@ public class Game extends Canvas implements Runnable {
 		
 		spawner = new Spawn(handler, hud);
 		
+		
 		r = new Random();
 		
-		handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player, handler));
-		
-		
+		if(gameState == STATE.Game) {
+			handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player, handler));
+		}
 		
 	}
 
@@ -84,7 +98,7 @@ public class Game extends Canvas implements Runnable {
 			
 			if(System.currentTimeMillis() - timer >1000) {
 				timer += 1000;
-				System.out.println("FPS: " + frames);
+				//System.out.println("FPS: " + frames);
 				frames = 0;
 			}
 		}
@@ -93,8 +107,13 @@ public class Game extends Canvas implements Runnable {
 	
 	private void tick() {
 		handler.tick();
-		hud.tick();
-		spawner.tick();
+		if(gameState == STATE.Game) {
+			hud.tick();
+			spawner.tick();
+		}
+		else if(gameState == STATE.Menu){
+			menu.tick();
+		}
 		
 	}
 	
@@ -111,7 +130,12 @@ public class Game extends Canvas implements Runnable {
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		handler.render(g);
-		hud.render(g);
+		if(gameState == STATE.Game) {
+			hud.render(g);
+		}
+		else if(gameState == STATE.Menu|| gameState == STATE.Help){
+			menu.render(g);
+		}
 		
 		g.dispose();
 		bs.show();
