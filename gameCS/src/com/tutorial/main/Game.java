@@ -37,20 +37,17 @@ public class Game extends Canvas implements Runnable {
 	public Game() {
 		
 		handler = new Handler();
-		
 		hud = new HUD();
-		
 		menu = new Menu(this, handler, hud);
-		
 		this.addKeyListener(new KeyInput(handler));
-		
 		this.addMouseListener(menu);
+		
+		AudioPlayer.load();
+		AudioPlayer.getMusic("music").loop();
 		
 		new Window(WIDTH, HEIGHT, "Let's build a game", this);
 		
 		spawner = new Spawn(handler, hud);
-		
-		
 		r = new Random();
 		
 		if(gameState == STATE.Game) {
