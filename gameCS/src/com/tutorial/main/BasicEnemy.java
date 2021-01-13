@@ -3,6 +3,7 @@ package com.tutorial.main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 public class BasicEnemy extends GameObject {
 
@@ -16,6 +17,7 @@ public class BasicEnemy extends GameObject {
 		
 		velX = 5;
 		velY = 5;
+		
 	}
 
 

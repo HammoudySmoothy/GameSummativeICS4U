@@ -2,9 +2,10 @@ package com.tutorial.main;
 //This is a diff commit push
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Random;
 
 public class Game extends Canvas implements Runnable {
@@ -30,25 +31,29 @@ public class Game extends Canvas implements Runnable {
 	private HUD hud;
 	private Spawn spawner;
 	private Menu menu;
+	private Shop shop;
 	
 	
 	public enum STATE{
 		Menu(),
 		Game(),
 		Help(),
+		Shop(),
 		End(),
 		Select()
 	};
 	
 	public static STATE gameState = STATE.Menu;
 	
-	public Game() {
+	public Game() throws IOException {
 		
 		handler = new Handler();
 		hud = new HUD();
+		shop = new Shop(handler, hud);
 		menu = new Menu(this, handler, hud);
 		this.addKeyListener(new KeyInput(handler, this));
 		this.addMouseListener(menu);
+		this.addMouseListener(shop);
 		
 		AudioPlayer.load();
 		AudioPlayer.getMusic("music").loop();
@@ -142,6 +147,7 @@ public class Game extends Canvas implements Runnable {
 	
 	private void render() {
 		BufferStrategy bs = this.getBufferStrategy();
+		
 		if(bs==null) {
 			this.createBufferStrategy(3);;
 			return;
@@ -152,17 +158,24 @@ public class Game extends Canvas implements Runnable {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
-		handler.render(g);
+		
 		
 		if(paused) {
 			g.setColor(Color.white);
 			g.drawString("PAUSED..", 550, 40);
 		}
+		
 		if(gameState == STATE.Game) {
 			hud.render(g);
+			handler.render(g);
 		}
+		
 		else if(gameState == STATE.Menu|| gameState == STATE.Help||gameState == STATE.End||gameState == STATE.Select){
 			menu.render(g);
+			handler.render(g);
+			
+		}else if (gameState == STATE.Shop) {
+			shop.render(g);
 		}
 		
 		g.dispose();
@@ -177,7 +190,12 @@ public class Game extends Canvas implements Runnable {
 	
 	public static void main(String args[]) {
 	
-		new Game();
+		try {
+			new Game();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 }

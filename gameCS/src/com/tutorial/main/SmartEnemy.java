@@ -45,14 +45,15 @@ public class SmartEnemy extends GameObject {
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
 		g.setColor(Color.green);
-		g.fillRect((int)x, (int)y, 20, 20);
+		g.fillRect((int)x, (int)y, 18, 18);
+
 		
 	}
 	
 	public Rectangle getBounds() {
 		// TODO Auto-generated method stub
 		
-		return new Rectangle((int)x, (int)y, 20, 20);
+		return new Rectangle((int)x, (int)y, 18, 18);
 	}
 
 

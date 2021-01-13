@@ -15,7 +15,7 @@ public class FastEnemy extends GameObject {
 		this.handler = handler;
 		
 		velX = 2;
-		velY = 10;
+		velY = 10;	
 	}
 
 
@@ -35,14 +35,14 @@ public class FastEnemy extends GameObject {
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
 		g.setColor(Color.pink);
-		g.fillRect((int)x, (int)y, 12, 12);
+		g.fillRect((int)x, (int)y, 16, 16);
 		
 	}
 	
 	public Rectangle getBounds() {
 		// TODO Auto-generated method stub
 		
-		return new Rectangle((int)x, (int)y, 12, 12);
+		return new Rectangle((int)x, (int)y, 16, 16);
 	}
 
 

@@ -14,7 +14,6 @@ public class Player extends GameObject{
 	public Player(int x, int y, ID id, Handler handler) {
 		super(x,y,id);
 		this.handler = handler;
-		
 	}
 
 	public void tick() {
@@ -35,12 +34,14 @@ public class Player extends GameObject{
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
 		
-		Graphics2D g2d = (Graphics2D) g;
-		g.setColor(Color.green);
-		g2d.draw(getBounds());;
+		//Collision box shown
+		//Graphics2D g2d = (Graphics2D) g;
+		//g.setColor(Color.green);
+		//g2d.draw(getBounds());;
 		
-		if(id == ID.Player) g.setColor(Color.white);
+		g.setColor(Color.white);
 		g.fillRect((int)x, (int)y, 32, 32);
+		
 	}
 
 
