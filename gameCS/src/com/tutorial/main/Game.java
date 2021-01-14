@@ -26,12 +26,15 @@ public class Game extends Canvas implements Runnable {
 	//0 is normal
 	//1 is hard
 	
+	public boolean isFaceTrackOn = false;
+	
 	private Random r;
 	private Handler handler;
 	private HUD hud;
 	private Spawn spawner;
 	private Menu menu;
 	private Shop shop;
+	private FaceTracker faceTracker;
 	
 	
 	public enum STATE{
@@ -50,7 +53,9 @@ public class Game extends Canvas implements Runnable {
 		handler = new Handler();
 		hud = new HUD();
 		shop = new Shop(handler, hud);
-		menu = new Menu(this, handler, hud);
+		faceTracker = new FaceTracker();
+		menu = new Menu(this, handler, hud, faceTracker);
+		
 		this.addKeyListener(new KeyInput(handler, this));
 		this.addMouseListener(menu);
 		this.addMouseListener(shop);
@@ -113,7 +118,7 @@ public class Game extends Canvas implements Runnable {
 			
 			if(System.currentTimeMillis() - timer >1000) {
 				timer += 1000;
-				//System.out.println("FPS: " + frames);
+				System.out.println("FPS: " + frames);
 				frames = 0;
 			}
 		}
@@ -126,6 +131,10 @@ public class Game extends Canvas implements Runnable {
 			if(gameState == STATE.Game) {
 				hud.tick();
 				spawner.tick();
+				//thirty frames per second 30ms every
+				if(isFaceTrackOn) {
+					faceTracker.tick();
+				}
 				
 				if(HUD.HEALTH <= 0) {
 					HUD.HEALTH = 100;

@@ -36,6 +36,10 @@ public class KeyInput extends KeyAdapter{
 				if(key == KeyEvent.VK_A) {tempObject.setVelX(-handler.speed); keyDown[3] = true;}
 				
 			}
+			
+			if (game.isFaceTrackOn) {
+				//Write inputs here....
+			}
 		
 		}
 		

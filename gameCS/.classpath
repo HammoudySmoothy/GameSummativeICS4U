@@ -16,6 +16,11 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/openCV">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/hammo/Documents/LibrariesJava/Libs/jars/jinput.jar"/>
 	<classpathentry kind="lib" path="C:/Users/hammo/Documents/LibrariesJava/Libs/jars/jogg-0.0.7.jar"/>
 	<classpathentry kind="lib" path="C:/Users/hammo/Documents/LibrariesJava/Libs/jars/jorbis-0.0.15.jar"/>

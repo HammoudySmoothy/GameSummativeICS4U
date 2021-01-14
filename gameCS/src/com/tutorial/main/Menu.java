@@ -15,11 +15,13 @@ public class Menu extends MouseAdapter{
 	private Handler handler;
 	private Random r = new Random();
 	private HUD hud;
+	private FaceTracker faceTracker;
 	
-	public Menu (Game game, Handler handler, HUD hud){
+	public Menu (Game game, Handler handler, HUD hud, FaceTracker faceTracker){
 		this.game = game;
 		this.handler = handler;
 		this.hud = hud;
+		this.faceTracker = faceTracker;
 	}
 	
 	public void mousePressed(MouseEvent e) {
@@ -54,6 +56,7 @@ public class Menu extends MouseAdapter{
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				
 				game.dif = 0;
+				game.isFaceTrackOn = false;
 
 				AudioPlayer.getSound("buttonClick").play();
 			}
@@ -64,11 +67,22 @@ public class Menu extends MouseAdapter{
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
 				
 				game.dif = 1;
+				game.isFaceTrackOn = false;
 
 				AudioPlayer.getSound("buttonClick").play();
 			}
 			
 			// ADD FACETRACKING MODE HERE....
+			if (mouseOver(mx, my, 420, 250, 200, 64)) {
+				game.gameState = STATE.Game;
+				handler.clearEnemies();
+				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
+				faceTracker.beginTrack();
+				game.isFaceTrackOn = true;
+				game.dif = 0;
+
+				AudioPlayer.getSound("buttonClick").play();
+			}
 			// ADD 2 PLAYER MODE HERE
 			
 			//Back button
@@ -192,6 +206,10 @@ public class Menu extends MouseAdapter{
 			g.setColor(Color.white);
 			g.drawRect(210,250, 200, 64);
 			g.drawString("Hard", 270, 290);
+			
+			g.setColor(Color.white);
+			g.drawRect(420,250, 200, 64);
+			g.drawString("FaceTracker", 432, 290);
 			
 			g.setColor(Color.white);
 			g.drawRect(210,350, 200, 64);
