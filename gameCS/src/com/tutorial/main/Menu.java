@@ -77,9 +77,9 @@ public class Menu extends MouseAdapter{
 				game.gameState = STATE.Game;
 				handler.clearEnemies();
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler));
-				faceTracker.beginTrack();
-				game.isFaceTrackOn = true;
 				game.dif = 0;
+				game.isFaceTrackOn = faceTracker.beginTrack();
+				
 
 				AudioPlayer.getSound("buttonClick").play();
 			}
@@ -109,6 +109,7 @@ public class Menu extends MouseAdapter{
 				game.gameState = STATE.Menu;
 				AudioPlayer.getSound("buttonClick").play();
 				System.out.println("Try Again");
+				game.isFaceTrackOn = false;
 				hud.level(0);
 				hud.score(0);
 			}

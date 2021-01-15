@@ -75,7 +75,7 @@ public class Player extends GameObject{
 			if(tempObject.getID() == ID.SmartEnemy) {
 				if(getBounds().intersects(tempObject.getBounds())) {
 					//Collision Code
-					HUD.HEALTH -=3;
+					HUD.HEALTH -=1;
 				}
 				
 			}

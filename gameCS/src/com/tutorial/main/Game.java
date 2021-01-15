@@ -56,7 +56,7 @@ public class Game extends Canvas implements Runnable {
 		faceTracker = new FaceTracker();
 		menu = new Menu(this, handler, hud, faceTracker);
 		
-		this.addKeyListener(new KeyInput(handler, this));
+		this.addKeyListener(new KeyInput(handler, this, faceTracker));
 		this.addMouseListener(menu);
 		this.addMouseListener(shop);
 		

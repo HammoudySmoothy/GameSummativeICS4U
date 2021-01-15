@@ -18,6 +18,7 @@ import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
+import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
@@ -29,11 +30,17 @@ public class FaceTracker {
 	static JLabel lbl;
 	static ImageIcon icon;
 	
-	private long startTime = -1;
+	private long startTime = 0;
+	
+	private int playerXCord;
+	private int playerYCord;
 	
 	private VideoCapture videoDevice;
 	private CascadeClassifier cascadeFaceClassifier; 
 	private CascadeClassifier cascadeEyeClassifier;
+	
+	private Mat backgroundRect;
+	
 	
 	public FaceTracker(){
 		
@@ -45,22 +52,23 @@ public class FaceTracker {
 	
 	}
 	
-	public void beginTrack() {
+	public boolean beginTrack() {
 		//MUST EDIT SO ILL ONLY SHOW BLACK SCREEN WITH SQUARES NOT THE FACE ITSELF!!!
 		//DRAW BOXES IN CORRECT COORDINATES 
 		// SET VELOCITIES FOR PLAYER X AND Y
 		
 		videoDevice.open(0);
 		if (videoDevice.isOpened()) {
+			return true;
 		}
 		else {
 			System.out.println("Video cannot be opened.");
-			return;
+			return false;
 		}
 	}
 	
 	public void tick() {
-		if(System.currentTimeMillis() - startTime >= 1000) {
+		if(System.currentTimeMillis() - startTime >= 150) {
 			startTime = System.currentTimeMillis();
 			refreshVideo();
 		}
@@ -70,14 +78,21 @@ public class FaceTracker {
 	public void refreshVideo() {
 		Mat frameCapture = new Mat();
 		videoDevice.read(frameCapture);
+		Imgproc.resize(frameCapture, frameCapture, new Size(320, 240));
+		Core.flip(frameCapture, frameCapture, 1);
+		backgroundRect = new Mat();
+		backgroundRect = Imgcodecs.imread("ressources/BlackSquare.jpg");
+		Imgproc.resize(backgroundRect, backgroundRect, new Size(320, 240));
 		
 		MatOfRect faces = new MatOfRect();
 		cascadeFaceClassifier.detectMultiScale(frameCapture, faces);								
 
 		for (Rect rect : faces.toArray()) {
 
-			Imgproc.putText(frameCapture, "Face", new Point(rect.x,rect.y-5), 1, 2, new Scalar(0,0,255));								
-			Imgproc.rectangle(frameCapture, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),new Scalar(0, 100, 0),3);
+			Imgproc.putText(backgroundRect, "Face", new Point(rect.x,rect.y-5), 1, 2, new Scalar(0,0,255));								
+			Imgproc.rectangle(backgroundRect, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),new Scalar(0, 100, 0),3);
+			playerXCord = rect.x + rect.width/2;
+			playerYCord = rect.y + rect.height/2;
 		}
 		
 
@@ -85,17 +100,17 @@ public class FaceTracker {
 		cascadeEyeClassifier.detectMultiScale(frameCapture, eyes);
 		for (Rect rect : eyes.toArray()) {
 
-			Imgproc.putText(frameCapture, "Eye", new Point(rect.x,rect.y-5), 1, 2, new Scalar(0,0,255));				
+			Imgproc.putText(backgroundRect, "Eye", new Point(rect.x,rect.y-5), 1, 2, new Scalar(0,0,255));				
 
-			Imgproc.rectangle(frameCapture, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),
+			Imgproc.rectangle(backgroundRect, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),
 					new Scalar(200, 200, 100),2);
 		}
-		
-		PushImage(ConvertMat2Image(frameCapture));
-		//System.out.println(String.format("%s yüz(FACES) %s göz(EYE) detected.", faces.toArray().length,eyes.toArray().length));
+		PushImage(ConvertMat2Image(backgroundRect));
+		//PushImage(ConvertMat2Image(frameCapture));
+		System.out.println(String.format("%s FACES %s EYE detected.", faces.toArray().length,eyes.toArray().length));
 	}
 	
-private static BufferedImage ConvertMat2Image(Mat kameraVerisi) {
+	private static BufferedImage ConvertMat2Image(Mat kameraVerisi) {
 		MatOfByte byteMatVerisi = new MatOfByte();
 
 		Imgcodecs.imencode(".jpg", kameraVerisi, byteMatVerisi);
@@ -115,7 +130,7 @@ private static BufferedImage ConvertMat2Image(Mat kameraVerisi) {
 	public static void PencereHazirla() {
 		frame = new JFrame();
 		frame.setLayout(new FlowLayout());
-		frame.setSize(700, 600);
+		frame.setSize(330, 250);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -129,5 +144,13 @@ private static BufferedImage ConvertMat2Image(Mat kameraVerisi) {
 		lbl.setIcon(icon);
 		frame.add(lbl);
 		frame.revalidate();
+	}
+	
+	public int getX() {
+		return playerXCord;
+	}
+	
+	public int getY() {
+		return playerYCord;
 	}
 }

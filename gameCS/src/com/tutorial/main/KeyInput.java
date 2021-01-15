@@ -12,9 +12,12 @@ public class KeyInput extends KeyAdapter{
 	
 	private Game game;
 	
-	public KeyInput(Handler handler, Game game) {
+	private FaceTracker faceTracker;
+	
+	public KeyInput(Handler handler, Game game, FaceTracker faceTracker) {
 		this.game = game;
 		this.handler = handler;
+		this.faceTracker = faceTracker;
 		
 		for(int i =0; i< keyDown.length; i++) {
 			keyDown[i] = false;
@@ -28,7 +31,7 @@ public class KeyInput extends KeyAdapter{
 		for(int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 			
-			if (tempObject.getID() == ID.Player){
+			if (tempObject.getID() == ID.Player && !game.isFaceTrackOn){
 				//key events for player 1
 				if(key == KeyEvent.VK_W) {tempObject.setVelY(-handler.speed); keyDown[0] = true;}
 				if(key == KeyEvent.VK_S) {tempObject.setVelY(handler.speed); keyDown[1] = true;}
@@ -37,9 +40,10 @@ public class KeyInput extends KeyAdapter{
 				
 			}
 			
-			if (game.isFaceTrackOn) {
+			if (tempObject.getID() == ID.Player && game.isFaceTrackOn) {
 				//Write inputs here....
-			}
+				tempObject.x = faceTracker.getX()*game.WIDTH/320;
+				tempObject.y = faceTracker.getY()*game.WIDTH/320;			}
 		
 		}
 		
