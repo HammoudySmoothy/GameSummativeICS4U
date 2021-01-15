@@ -43,7 +43,7 @@ public class KeyInput extends KeyAdapter{
 			if (tempObject.getID() == ID.Player && game.isFaceTrackOn) {
 				//Write inputs here....
 				tempObject.x = faceTracker.getX()*game.WIDTH/320;
-				tempObject.y = faceTracker.getY()*game.WIDTH/320;			}
+				tempObject.y = faceTracker.getY()*game.HEIGHT/240;			}
 		
 		}
 		

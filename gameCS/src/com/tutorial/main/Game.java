@@ -105,6 +105,7 @@ public class Game extends Canvas implements Runnable {
 		long timer = System.currentTimeMillis();
 		int frames = 0;
 		while(running) {
+			//this.requestFocus();
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
 			lastTime = now;
@@ -131,7 +132,7 @@ public class Game extends Canvas implements Runnable {
 			if(gameState == STATE.Game) {
 				hud.tick();
 				spawner.tick();
-				//thirty frames per second 30ms every
+				
 				if(isFaceTrackOn) {
 					faceTracker.tick();
 				}

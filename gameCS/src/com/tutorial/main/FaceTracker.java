@@ -68,7 +68,7 @@ public class FaceTracker {
 	}
 	
 	public void tick() {
-		if(System.currentTimeMillis() - startTime >= 150) {
+		if(System.currentTimeMillis() - startTime >= 100) {
 			startTime = System.currentTimeMillis();
 			refreshVideo();
 		}
@@ -110,21 +110,21 @@ public class FaceTracker {
 		System.out.println(String.format("%s FACES %s EYE detected.", faces.toArray().length,eyes.toArray().length));
 	}
 	
-	private static BufferedImage ConvertMat2Image(Mat kameraVerisi) {
-		MatOfByte byteMatVerisi = new MatOfByte();
+	private static BufferedImage ConvertMat2Image(Mat camerArray) {
+		MatOfByte byteMatArray = new MatOfByte();
 
-		Imgcodecs.imencode(".jpg", kameraVerisi, byteMatVerisi);
+		Imgcodecs.imencode(".jpg", camerArray, byteMatArray);
 
-		byte[] byteArray = byteMatVerisi.toArray();
-		BufferedImage goruntu = null;
+		byte[] byteArray = byteMatArray.toArray();
+		BufferedImage recievedImage = null;
 		try {
 			InputStream in = new ByteArrayInputStream(byteArray);
-			goruntu = ImageIO.read(in);
+			recievedImage = ImageIO.read(in);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-		return goruntu;
+		return recievedImage;
 	}
   	
 	public static void PencereHazirla() {

@@ -41,7 +41,7 @@ public class Shop extends MouseAdapter{
 		g.drawString("Cost: " + B3, 110, 140);
 		g.drawRect(100, 100, 100, 80);
 		
-		g.drawString("Score: " + hud.getScore(), Game.WIDTH/2-50, 300);
+		g.drawString("Gold: " + hud.getGold(), Game.WIDTH/2-50, 300);
 		g.drawString("Press Space to Leave", Game.WIDTH/2-50, 330);
 	}
 	
@@ -52,8 +52,8 @@ public class Shop extends MouseAdapter{
 		//box 1
 		if(mx >= 250 && mx<= 350) {
 			if(my >=100 && my <=180) {
-				if(hud.getScore() >= B1) {
-					hud.score(hud.getScore() - B1);
+				if(hud.getGold() >= B1) {
+					hud.gold(hud.getGold() - B1);
 					B1+= 100;
 					hud.bounds += 20;
 					hud.HEALTH = 100 + hud.bounds/2;
@@ -64,8 +64,8 @@ public class Shop extends MouseAdapter{
 		//box2
 		if(mx >= 400 && mx<= 500) {
 			if(my >=100 && my <=180) {
-				if(hud.getScore() >= B2) {
-					hud.score(hud.getScore() - B2);
+				if(hud.getGold() >= B2) {
+					hud.gold(hud.getGold() - B2);
 					B2+= 100;
 					handler.speed++;
 				}
@@ -77,8 +77,8 @@ public class Shop extends MouseAdapter{
 		if(mx >= 100 && mx<= 150) {
 			if(my >=100 && my <=180) {
 				if(hud.HEALTH < 100 + hud.bounds/2) {
-					if(hud.getScore() >= B3) {
-						hud.score(hud.getScore() - B3);
+					if(hud.getGold() >= B3) {
+						hud.gold(hud.getGold() - B3);
 						hud.HEALTH = 100 + hud.bounds/2;
 					}
 				}

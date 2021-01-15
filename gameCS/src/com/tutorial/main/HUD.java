@@ -6,10 +6,11 @@ import java.awt.Graphics;
 public class HUD {
 	
 	public int bounds = 0;
-	public static float HEALTH = 1000000;
+	public static float HEALTH = 100;
 	
 	private int greenValue = 255;
 	private int score = 0;
+	private int gold = 0;
 	private int level = 0;
 	
 	
@@ -19,6 +20,7 @@ public class HUD {
 		greenValue = (int) (HEALTH*2);
 		greenValue = (int) Game.clamp(greenValue, 0, 255);
 		score ++;
+		gold ++;
 		
 	}
 	
@@ -30,7 +32,7 @@ public class HUD {
 		g.setColor(Color.white);
 		g.drawRect(15, 15, 200 + bounds, 32);
 		
-		g.drawString("Score: " + score, 15, 64);
+		g.drawString("Score: " + score + "Gold: " + gold, 15, 64);
 		g.drawString("Level: "+ level, 15, 80);
 		g.drawString("Space for Shop", 15, 94);
 	}
@@ -41,6 +43,14 @@ public class HUD {
 	
 	public int getScore() {
 		return score;
+	}
+	
+	public void gold(int gold) {
+		this.gold = gold;
+	}
+	
+	public int getGold() {
+		return gold;
 	}
 	
 	public void level(int level) {
