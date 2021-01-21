@@ -139,6 +139,9 @@ public class FaceTracker {
 	}
   	
 	public static void newWindow() {
+		//Second jFrame window
+	
+		
 		frame = new JFrame();
 		frame.setLayout(new FlowLayout());
 		frame.setSize(330, 250);
@@ -146,6 +149,8 @@ public class FaceTracker {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	public static void PushImage(Image img2) {
+		//Display image onto frame
+		
 		if (frame == null)
 			newWindow();
 		if (lbl != null)

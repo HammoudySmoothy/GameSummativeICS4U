@@ -103,6 +103,7 @@ public class Game extends Canvas implements Runnable {
 		//gets screen focus to window
 		this.requestFocus();
 		
+		//Game loop
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
@@ -132,7 +133,7 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	private void tick() {
-		//Refreshes objects 
+		//Refreshes objects every frame
 		
 		if(!paused) {
 			handler.tick();
@@ -163,7 +164,7 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	private void render() {
-		//Renders graphics
+		//Renders graphics every frame 
 		
 		BufferStrategy bs = this.getBufferStrategy();
 		
@@ -202,6 +203,8 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	public static float clamp(float x, float min, float max) {
+		// sets limit on how much a value can increase or decrease
+		
 		if(x>= max) return x = max;
 		else if (x<= min) return x = min;
 		else return x;

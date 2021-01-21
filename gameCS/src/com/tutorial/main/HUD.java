@@ -25,13 +25,15 @@ public class HUD {
 	}
 	
 	public void render(Graphics g) {
+		
+		//Display Health bar
 		g.setColor(Color.gray);
 		g.fillRect(15, 15, 200 + bounds, 32);
 		g.setColor(new Color(75, greenValue, 0));
 		g.fillRect(15, 15, (int) (HEALTH * 2), 32);
 		g.setColor(Color.white);
 		g.drawRect(15, 15, 200 + bounds, 32);
-		
+		//Score level etc.
 		g.drawString("Score: " + score + " Gold: " + gold, 15, 64);
 		g.drawString("Level: "+ level, 15, 80);
 		g.drawString("B key for Shop", 15, 94);
