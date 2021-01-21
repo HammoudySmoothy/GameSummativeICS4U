@@ -1,5 +1,4 @@
 package com.tutorial.main;
-//This is a diff commit push
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -36,7 +35,6 @@ public class Game extends Canvas implements Runnable {
 	private Shop shop;
 	private FaceTracker faceTracker;
 	
-	
 	public enum STATE{
 		Menu(),
 		Game(),
@@ -50,24 +48,30 @@ public class Game extends Canvas implements Runnable {
 	
 	public Game() throws IOException {
 		
+		//Create Objects
 		handler = new Handler();
 		hud = new HUD();
 		shop = new Shop(handler, hud);
 		faceTracker = new FaceTracker();
 		menu = new Menu(this, handler, hud, faceTracker);
 		
+		//Add Listeners that will respond to mouse and key inputs
 		this.addKeyListener(new KeyInput(handler, this, faceTracker));
 		this.addMouseListener(menu);
 		this.addMouseListener(shop);
 		
+		//Load music
 		AudioPlayer.load();
 		AudioPlayer.getMusic("music").loop();
 		
-		new Window(WIDTH, HEIGHT, "Let's build a game", this);
+		//Create a new window
+		new Window(WIDTH, HEIGHT, "Super Square", this);
 		
+		//Objects...
 		spawner = new Spawn(handler, hud, this);
 		r = new Random();
 		
+		//Spawn first objects, and background particles
 		if(gameState == STATE.Game) {
 			handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player, handler));
 		}else {
@@ -96,6 +100,7 @@ public class Game extends Canvas implements Runnable {
 	
 	public void run() {
 		
+		//gets screen focus to window
 		this.requestFocus();
 		
 		long lastTime = System.nanoTime();
@@ -105,7 +110,7 @@ public class Game extends Canvas implements Runnable {
 		long timer = System.currentTimeMillis();
 		int frames = 0;
 		while(running) {
-			//this.requestFocus();
+			this.requestFocus();
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
 			lastTime = now;
@@ -119,7 +124,7 @@ public class Game extends Canvas implements Runnable {
 			
 			if(System.currentTimeMillis() - timer >1000) {
 				timer += 1000;
-				System.out.println("FPS: " + frames);
+				//System.out.println("FPS: " + frames);
 				frames = 0;
 			}
 		}
@@ -127,6 +132,8 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	private void tick() {
+		//Refreshes objects 
+		
 		if(!paused) {
 			handler.tick();
 			if(gameState == STATE.Game) {
@@ -156,6 +163,8 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	private void render() {
+		//Renders graphics
+		
 		BufferStrategy bs = this.getBufferStrategy();
 		
 		if(bs==null) {

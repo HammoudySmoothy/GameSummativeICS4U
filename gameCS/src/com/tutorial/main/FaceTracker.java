@@ -53,10 +53,8 @@ public class FaceTracker {
 	}
 	
 	public boolean beginTrack() {
-		//MUST EDIT SO ILL ONLY SHOW BLACK SCREEN WITH SQUARES NOT THE FACE ITSELF!!!
-		//DRAW BOXES IN CORRECT COORDINATES 
-		// SET VELOCITIES FOR PLAYER X AND Y
 		
+		//Open Video Device
 		videoDevice.open(0);
 		if (videoDevice.isOpened()) {
 			return true;
@@ -68,6 +66,7 @@ public class FaceTracker {
 	}
 	
 	public void tick() {
+		//Refresh video every 100 frames
 		if(System.currentTimeMillis() - startTime >= 100) {
 			startTime = System.currentTimeMillis();
 			refreshVideo();
@@ -76,14 +75,21 @@ public class FaceTracker {
 	}
 	
 	public void refreshVideo() {
+		//Redraw image (update)
 		Mat frameCapture = new Mat();
+		//read image
 		videoDevice.read(frameCapture);
+		//Resize image
 		Imgproc.resize(frameCapture, frameCapture, new Size(320, 240));
+		//Invert image so that its like a mirror
 		Core.flip(frameCapture, frameCapture, 1);
+		//Redraw shown image with black background for easier time rendering
 		backgroundRect = new Mat();
 		backgroundRect = Imgcodecs.imread("ressources/BlackSquare.jpg");
+		//Resize background image
 		Imgproc.resize(backgroundRect, backgroundRect, new Size(320, 240));
 		
+		// Face Tracking...
 		MatOfRect faces = new MatOfRect();
 		cascadeFaceClassifier.detectMultiScale(frameCapture, faces);								
 
@@ -95,8 +101,9 @@ public class FaceTracker {
 			playerYCord = rect.y + rect.height/2;
 		}
 		
-
-		MatOfRect eyes = new MatOfRect();
+		//EyeTracking...
+		
+		/*MatOfRect eyes = new MatOfRect();
 		cascadeEyeClassifier.detectMultiScale(frameCapture, eyes);
 		for (Rect rect : eyes.toArray()) {
 
@@ -104,13 +111,17 @@ public class FaceTracker {
 
 			Imgproc.rectangle(backgroundRect, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),
 					new Scalar(200, 200, 100),2);
-		}
+		}*/
+		
 		PushImage(ConvertMat2Image(backgroundRect));
 		//PushImage(ConvertMat2Image(frameCapture));
-		System.out.println(String.format("%s FACES %s EYE detected.", faces.toArray().length,eyes.toArray().length));
+		//System.out.println(String.format("%s FACES %s EYE detected.", faces.toArray().length,eyes.toArray().length));
+		System.out.println(String.format("%s FACES", faces.toArray().length));
 	}
 	
 	private static BufferedImage ConvertMat2Image(Mat camerArray) {
+		//in order to display image using jFrame
+		
 		MatOfByte byteMatArray = new MatOfByte();
 
 		Imgcodecs.imencode(".jpg", camerArray, byteMatArray);
@@ -127,7 +138,7 @@ public class FaceTracker {
 		return recievedImage;
 	}
   	
-	public static void PencereHazirla() {
+	public static void newWindow() {
 		frame = new JFrame();
 		frame.setLayout(new FlowLayout());
 		frame.setSize(330, 250);
@@ -136,7 +147,7 @@ public class FaceTracker {
 	}
 	public static void PushImage(Image img2) {
 		if (frame == null)
-			PencereHazirla();
+			newWindow();
 		if (lbl != null)
 			frame.remove(lbl);
 		icon = new ImageIcon(img2);

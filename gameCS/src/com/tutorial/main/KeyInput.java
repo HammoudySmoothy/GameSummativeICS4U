@@ -39,9 +39,8 @@ public class KeyInput extends KeyAdapter{
 				if(key == KeyEvent.VK_A) {tempObject.setVelX(-handler.speed); keyDown[3] = true;}
 				
 			}
-			
 			if (tempObject.getID() == ID.Player && game.isFaceTrackOn) {
-				//Write inputs here....
+				//Setting face traker coords to object
 				tempObject.x = faceTracker.getX()*game.WIDTH/320;
 				tempObject.y = faceTracker.getY()*game.HEIGHT/240;			}
 		
@@ -55,9 +54,15 @@ public class KeyInput extends KeyAdapter{
 		}
 		
 		if(key == KeyEvent.VK_ESCAPE) System.exit(1);
-		if(key == KeyEvent.VK_SPACE) {
-			if(Game.gameState == STATE.Game) Game.gameState = STATE.Shop;
-			else if(Game.gameState == STATE.Shop) Game.gameState = STATE.Game;
+		if(key == KeyEvent.VK_B) {
+			if(Game.gameState == STATE.Game) {
+				Game.gameState = STATE.Shop;
+				Game.paused = true;
+			}
+			else if(Game.gameState == STATE.Shop) {
+				Game.gameState = STATE.Game;
+				Game.paused = false;
+			}
 		}
 		
 	}
@@ -70,10 +75,10 @@ public class KeyInput extends KeyAdapter{
 			
 			if (tempObject.getID() == ID.Player){
 				//key events for player 1
-				if(key == KeyEvent.VK_W) keyDown[0] = false;//tempObject.setVelY(0);
-				if(key == KeyEvent.VK_S) keyDown[1] = false; //tempObject.setVelY(0);
-				if(key == KeyEvent.VK_D) keyDown[2] = false;//tempObject.setVelX(0);
-				if(key == KeyEvent.VK_A) keyDown[3] = false;//tempObject.setVelX(0);
+				if(key == KeyEvent.VK_W) keyDown[0] = false;;
+				if(key == KeyEvent.VK_S) keyDown[1] = false;
+				if(key == KeyEvent.VK_D) keyDown[2] = false;
+				if(key == KeyEvent.VK_A) keyDown[3] = false;
 				
 				//vert movement
 				if(!keyDown[0] && !keyDown[1]) tempObject.setVelY(0);

@@ -8,7 +8,7 @@ import java.util.Random;
 public class BossEnemy extends GameObject {
 
 	private Handler handler;
-	private int timer = 100;
+	private int timer = 60;
 	private int timer2 = 50;
 	Random r = new Random();
 	
@@ -38,7 +38,7 @@ public class BossEnemy extends GameObject {
 			if(velX < 0) velX -= (float) 0.05;
 			velX = Game.clamp(velX, -10 , 10);
 				
-			int spawn = r.nextInt(10);
+			int spawn = r.nextInt(7);
 			if(spawn ==0) handler.addObject(new BossEnemyBullet((int)x +48, (int)y + 48, ID.BasicEnemy, handler));
 			
 		}

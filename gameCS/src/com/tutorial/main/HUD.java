@@ -32,9 +32,9 @@ public class HUD {
 		g.setColor(Color.white);
 		g.drawRect(15, 15, 200 + bounds, 32);
 		
-		g.drawString("Score: " + score + "Gold: " + gold, 15, 64);
+		g.drawString("Score: " + score + " Gold: " + gold, 15, 64);
 		g.drawString("Level: "+ level, 15, 80);
-		g.drawString("Space for Shop", 15, 94);
+		g.drawString("B key for Shop", 15, 94);
 	}
 
 	public void score(int score) {
@@ -59,6 +59,11 @@ public class HUD {
 	
 	public int getLevel() {
 		return level;
+	}
+
+	public void bounds(int bounds) {
+		this.bounds = bounds;
+		
 	}
 	
 }

@@ -72,7 +72,7 @@ public class Menu extends MouseAdapter{
 				AudioPlayer.getSound("buttonClick").play();
 			}
 			
-			// ADD FACETRACKING MODE HERE....
+			// FACETRACKING MODE
 			if (mouseOver(mx, my, 420, 250, 200, 64)) {
 				game.gameState = STATE.Game;
 				handler.clearEnemies();
@@ -83,7 +83,6 @@ public class Menu extends MouseAdapter{
 
 				AudioPlayer.getSound("buttonClick").play();
 			}
-			// ADD 2 PLAYER MODE HERE
 			
 			//Back button
 			if (mouseOver(mx,my, 210,350,200,64)) {
@@ -111,6 +110,11 @@ public class Menu extends MouseAdapter{
 				System.out.println("Try Again");
 				game.isFaceTrackOn = false;
 				hud.level(0);
+				hud.bounds(0);
+				Shop.B1 = 100;
+				Shop.B2 = 100;
+				handler.speed = 5;
+				hud.gold(0);
 				hud.score(0);
 			}
 		}
@@ -169,7 +173,11 @@ public class Menu extends MouseAdapter{
 			g.drawString("Help", 240, 70);
 			
 			g.setFont(fnt3);
-			g.drawString("Use WASD keys to move player and dodge enemies", 50, 200);
+			g.drawString("Use WASD keys to move player and dodge enemies", 50, 150);
+			g.drawString("In FaceTrack mode: hold space to move.", 50, 200);
+			g.drawString("The camera will follow your face.", 50, 230);
+			g.drawString("Make sure to not have any other open applications ", 50, 260);
+			g.drawString("with the camera running", 50, 290);
 			g.setFont(fnt2);
 			g.drawRect(210,350, 200, 64);
 			g.drawString("Back", 270, 390);
