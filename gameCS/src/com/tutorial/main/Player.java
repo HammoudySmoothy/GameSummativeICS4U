@@ -61,6 +61,7 @@ public class Player extends GameObject{
 				if(getBounds().intersects(tempObject.getBounds())) {
 					//Collision Code
 					HUD.HEALTH -=2;
+					AudioPlayer.getSound("punch").play();
 				}
 				
 			}
@@ -69,6 +70,7 @@ public class Player extends GameObject{
 				if(getBounds().intersects(tempObject.getBounds())) {
 					//Collision Code
 					HUD.HEALTH -=1;
+					AudioPlayer.getSound("punch").play();
 				}
 				
 			}
@@ -76,6 +78,7 @@ public class Player extends GameObject{
 				if(getBounds().intersects(tempObject.getBounds())) {
 					//Collision Code
 					HUD.HEALTH -=1;
+					AudioPlayer.getSound("wallHit").play();
 				}
 				
 			}

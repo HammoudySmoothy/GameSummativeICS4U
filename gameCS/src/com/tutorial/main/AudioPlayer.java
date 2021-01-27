@@ -17,6 +17,10 @@ public class AudioPlayer {
 		try {
 			soundMap.put("buttonClick", new Sound("ressources/ButtonCLick.ogg"));
 			
+			soundMap.put("punch", new Sound("ressources/FistPunch.ogg"));
+			
+			soundMap.put("wallHit", new Sound("ressources/BodyWall Impact.ogg"));
+			
 			musicMap.put("music", new Music("ressources/GamingBackgroundMusic.ogg"));
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
