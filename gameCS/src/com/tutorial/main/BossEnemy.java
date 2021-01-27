@@ -39,7 +39,7 @@ public class BossEnemy extends GameObject {
 			velX = Game.clamp(velX, -10 , 10);
 				
 			int spawn = r.nextInt(7);
-			if(spawn ==0) handler.addObject(new BossEnemyBullet((int)x +48, (int)y + 48, ID.BasicEnemy, handler));
+			if(spawn ==0) handler.addObject(new BossEnemyBullet((int)x +48, (int)y + 48, ID.BossEnemy, handler));
 			
 		}
 		

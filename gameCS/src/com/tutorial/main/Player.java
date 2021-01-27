@@ -66,6 +66,15 @@ public class Player extends GameObject{
 				
 			}
 			
+			if(tempObject.getID() == ID.BossEnemy) {
+				if(getBounds().intersects(tempObject.getBounds())) {
+					//Collision Code
+					HUD.HEALTH -=100;
+					AudioPlayer.getSound("punch").play();
+				}
+			}
+			
+			
 			if(tempObject.getID() == ID.FastEnemy) {
 				if(getBounds().intersects(tempObject.getBounds())) {
 					//Collision Code
