@@ -17,6 +17,8 @@ public class Menu extends MouseAdapter{
 	private HUD hud;
 	private FaceTracker faceTracker;
 	
+	public static int highscore = 0;/////
+	
 	public Menu (Game game, Handler handler, HUD hud, FaceTracker faceTracker){
 		this.game = game;
 		this.handler = handler;
@@ -183,6 +185,7 @@ public class Menu extends MouseAdapter{
 			g.drawString("Back", 270, 390);
 		}
 		else if(game.gameState == STATE.End) {
+			
 			Font fnt = new Font("arial", 1, 50);
 			Font fnt2 = new Font("arial", 1, 30);
 			Font fnt3 = new Font("arial", 1, 20);
@@ -193,6 +196,17 @@ public class Menu extends MouseAdapter{
 			
 			g.setFont(fnt3);
 			g.drawString("You lost with a score of: " + hud.getScore(), 185, 210);
+			
+			if (hud.getScore() > highscore)
+		    {    
+				g.drawString("You now have the new high score!", 160, 250);
+				g.drawString("The previous high score was " + highscore, 165, 280);
+		    } else if (hud.getScore() == highscore) {
+		    	g.drawString("You tied the high score!", 175, 250);
+		    } else {
+		        g.drawString("The all time high score was " + highscore, 175, 250);
+		    }
+			
 			g.setFont(fnt2);
 			g.drawRect(220, 350, 200, 64);
 			g.drawString("Try Again?", 245, 390);

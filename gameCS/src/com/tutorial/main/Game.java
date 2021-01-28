@@ -3,7 +3,10 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
@@ -21,6 +24,8 @@ public class Game extends Canvas implements Runnable {
 	
 	public static boolean paused = false;
 	public int dif = 0;
+	
+	public static int score = 0;
 	
 	//0 is normal
 	//1 is hard
@@ -149,6 +154,39 @@ public class Game extends Canvas implements Runnable {
 					HUD.HEALTH = 100;
 					gameState = STATE.End;
 					handler.clearEnemies();
+					 try {
+					        BufferedReader reader = new BufferedReader(new FileReader("ressources/Highscore"));
+					        String line = reader.readLine();
+					        while (line != null)                 // read the score file line by line
+					        {
+					            try {
+					                score = Integer.parseInt(line.trim());   // parse each line as an int
+					                if (score > Menu.highscore)              // and keep track of the largest
+					                { 
+					                	Menu.highscore = score; 
+					                }
+					            } catch (NumberFormatException e1) {
+					                // ignore invalid scores
+					                //System.err.println("ignoring invalid score: " + line);
+					            }
+					            line = reader.readLine();
+					        }
+					        reader.close();
+
+					    } catch (IOException ex) {
+					        System.err.println("ERROR reading scores from file");
+					    }
+					 
+					 try {
+					        BufferedWriter output = new BufferedWriter(new FileWriter("ressources/Highscore", true));
+					        output.newLine();
+					        output.append("" + hud.getScore());
+					        output.close();
+
+					    } catch (IOException ex1) {
+					        System.out.printf("ERROR writing score to file: %s\n", ex1);
+					    }
+									
 					for(int i = 0; i< 20; i++){
 						handler.addObject(new MenuParticle(r.nextInt(WIDTH)-52, r.nextInt(HEIGHT)-52, ID.MenuParticle, handler));
 					}
