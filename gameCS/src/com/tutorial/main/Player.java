@@ -74,6 +74,14 @@ public class Player extends GameObject{
 				}
 			}
 			
+			if(tempObject.getID() == ID.BossEnemyBullet) {
+				if(getBounds().intersects(tempObject.getBounds())) {
+					//Collision Code
+					HUD.HEALTH -=1;
+					AudioPlayer.getSound("punch").play();
+				}
+			}
+			
 			
 			if(tempObject.getID() == ID.FastEnemy) {
 				if(getBounds().intersects(tempObject.getBounds())) {
@@ -87,7 +95,7 @@ public class Player extends GameObject{
 				if(getBounds().intersects(tempObject.getBounds())) {
 					//Collision Code
 					HUD.HEALTH -=1;
-					AudioPlayer.getSound("wallHit").play();
+					AudioPlayer.getSound("punch").play();
 				}
 				
 			}
